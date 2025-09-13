@@ -83,6 +83,8 @@ export const createLead = async (leadData) => {
     // Firestore will automatically generate a unique ID
     const docRef = await leadsCollection.add({
       ...leadData,
+      email: leadData.email || null, // Email is optional
+      age: leadData.age || null, // Age is optional
       status: leadData.status || 'New', // Default status if not provided
       createdAt: new Date().toISOString() // Add timestamp
     });

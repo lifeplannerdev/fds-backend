@@ -30,8 +30,10 @@ app.use(compression({
 // Middleware
 app.use(express.json({ limit: '10mb' })); // Add limit for security
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
-  credentials: true
+  origin: ['http://localhost:5173', 'https://fds-gamma.vercel.app'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // OPTIMIZED: Add enhanced caching headers for GET requests

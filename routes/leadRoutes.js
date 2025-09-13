@@ -74,17 +74,34 @@ router.post('/', authenticateToken, async (req, res) => {
   try {
     console.log('Received POST request to create lead:', req.body);
     
-    const { name,phone,source } = req.body;
+    const { name, phone, source, email, age } = req.body;
     
     // Validate required fields
-    if (!name || !phone) {
+    if (!name || !phone || !email) {
       return res.status(400).json({ 
         success: false,
-        error: 'Name and phone are required fields.' 
+        error: 'Name, phone, and email are required fields.' 
       });
     }
     
-    const newLead = await createLead({ name, phone, source });
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid email format.'
+      });
+    }
+
+    // Validate age if provided
+    if (age !== undefined && (isNaN(age) || age < 0)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Age must be a valid positive number.'
+      });
+    }
+    
+    const newLead = await createLead({ name, phone, source, email, age });
     
     res.status(201).json({ 
       success: true,
