@@ -30,7 +30,7 @@ app.use(compression({
 // Middleware
 app.use(express.json({ limit: '10mb' })); // Add limit for security
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://fdsadmin.pages.dev','https://fds.appwrite.network'],
+  origin: ['http://localhost:5173', 'https://fdsadmin.pages.dev'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
